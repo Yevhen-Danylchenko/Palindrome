@@ -1,5 +1,4 @@
 #include <iostream>
-#include <vector>
 
 using namespace std;
 
@@ -14,9 +13,6 @@ public:
     explicit IsPalindrome(T number, size_t size) {
         this->number = number;
         this->size = size;
-        for (size_t i = 0; i < size; i++) {
-            this->number[i] = number[i];
-        }
     }
     bool numIsPalindrome() {
         size_t start = 0;
@@ -30,24 +26,36 @@ public:
         }
         return true;
     }
+    bool numberIsPalindrom() {
+        T temp = 0;
+        T reversNum = 0;
+        T originalNum = number;
+        int num = 10;
+        for (size_t i = 0; i < size; i++) {
+            temp = number % num;
+            reversNum = reversNum * num + temp;
+            number /= num;
+        }
+        if (reversNum == originalNum) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 };
 
 int main()
 {
     int size = 5;
     string world = "adfda";
-    int num[] = { 1,2,3,2,1 };
+    
     IsPalindrome<string> obj(world, size);
     cout << obj.numIsPalindrome() << endl;
 
-    vector<int> testVector = { 1, 2, 3, 2, 1 };
-    IsPalindrome<vector<int>> intPalindromeChecker(testVector, testVector.size());
-    if (intPalindromeChecker.numIsPalindrome()) {
-        cout << "The vector is a palindrome." << endl;
-    }
-    else {
-        cout << "The vector is not a palindrome." << endl;
-    }
+    int num_1 = 12329;
+    IsPalindrome<int> obj_1(num_1, size);
+    cout << obj_1.numberIsPalindrom() << endl;
 
     return 0;
 }
